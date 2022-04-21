@@ -1,6 +1,7 @@
 package com.undamped.medicare;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.ViewHolder> {
-    List<Feeds> feedsList;
+    ArrayList<Feeds> feedsList;
     Context context;
 
-    public FieldAdapter(List<Feeds> feeds) {
+    public FieldAdapter(ArrayList<Feeds> feeds) {
         feedsList = feeds;
 
     }
@@ -33,14 +35,14 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Feeds feed = feedsList.get(position);
 
-        holder.textDateTime.setText(feed.getCreated_at());
+//        holder.textDateTime.setText(feed.getCreated_at());
 
         if ((feed.getField1()) >= 800) {
             holder.bubble_value.setText("No Bubble");
         } else {
             holder.bubble_value.setText("Bubbles Formed");
         }
-
+        Log.d("onBindViewHolder: ",feed.getField2() +"");
         switch (feed.getField2()) {
             case 12:
                 holder.depth_value.setText("100%");

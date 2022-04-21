@@ -7,6 +7,10 @@ public class Feeds {
 
     private int  field1,field2;
     private String created_at;
+
+    public Feeds() {
+    }
+
     private int entry_id;
 
 

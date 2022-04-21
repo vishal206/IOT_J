@@ -90,6 +90,7 @@
             app:srcCompat="@drawable/person" />
 
         <ImageView
+            android:visibility="invisible"
             android:id="@+id/image2"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -103,6 +104,7 @@
             app:srcCompat="@drawable/person" />
 
         <ImageView
+            android:visibility="invisible"
             android:id="@+id/image3"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -116,6 +118,7 @@
             app:srcCompat="@drawable/person" />
 
         <ImageView
+            android:visibility="invisible"
             android:id="@+id/image4"
             android:layout_width="40dp"
             android:layout_height="40dp"
