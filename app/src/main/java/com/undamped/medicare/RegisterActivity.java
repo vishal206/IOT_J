@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+//try
 public class RegisterActivity extends AppCompatActivity {
 
     @BindView(R.id.emailREditText)
