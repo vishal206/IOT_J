@@ -34,19 +34,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private TextView drip_text;
+//    private RecyclerView recyclerView;
+//    private TextView drip_text;
+    
+    TextView tvLdr,tvUltra;
+    TextView depth_value, bubble_value;
+    int ldr=0;
+    int ultra=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bubble_value = findViewById(R.id.bubble_value);
+        depth_value = findViewById(R.id.depth_value);
+        tvLdr=findViewById(R.id.tvLdr);
+        tvUltra=findViewById(R.id.tvUltra);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        drip_text = findViewById(R.id.drip_text);
+//        recyclerView = findViewById(R.id.recyclerView);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        drip_text = findViewById(R.id.drip_text);
 
         fetchData();
 
@@ -55,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
 //                .addConverterFactory(GsonConverterFactory.create())
 //                .build();
 //
-//        JSONPlaceHolder jsonPlaceholder = retrofit.create(JSONPlaceHolder.class);
-//        Call<Feeds> call = jsonPlaceholder.getFeeds();
+//        JSONPlaceHolder jsonPlaceholder = retrofit.create(JSONPlace class);
+//        Call<Feeds> call = jsonPlace getFeeds();
 //        call.enqueue(new Callback<Feeds>() {
 //            @Override
 //            public void onResponse(Call<Feeds> call, Response<Feeds> response) {
@@ -83,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void fetchData() {
 
-        Feeds feed=new Feeds();
-        ArrayList<Feeds> feeds = new ArrayList<>();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference ref = database.getReference("ldr");
@@ -92,8 +99,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 double d=Double.parseDouble(dataSnapshot.getValue()+"");
-                feed.setField1((int) d);
-                Log.d("onDataChange: ",feed.getField1()+"");
+                ldr=(int)d;
+                tvLdr.setText("Ldr: "+ldr);
+                analyseData();
+//                r.setLdr((int) d);
+                Log.d("readMainLdr:",ldr+"");
             }
 
             @Override
@@ -107,8 +117,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int d=Integer.parseInt(dataSnapshot.getValue()+"");
-                feed.setField2((int) d);
-                Log.d("onDataChange2: ",feed.getField2()+"");
+                ultra=(int) d;
+                tvUltra.setText("Ultrasonic: "+ultra);
+                analyseData();
+//                r.setUltrasonic((int) d);
+
+                Log.d("readMainUlt ",ultra+"");
             }
 
             @Override
@@ -117,35 +131,84 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        feeds.add(feed);
-        Log.e("Info", feeds.toString());
-        Collections.reverse(feeds);
-//        checkDripActivity(feeds);
-        FieldAdapter fieldAdapter = new FieldAdapter(feeds);
-        recyclerView.setAdapter(fieldAdapter);
+//        readings.add(r);
+//        Collections.reverse(readings);
+////        checkDripActivity(feeds);
+//        FieldAdapter fieldAdapter = new FieldAdapter(readings);
+//        recyclerView.setAdapter(fieldAdapter);
+    }
+    private void analyseData() {
+        if (ultra >= 800) {
+            bubble_value.setText("No Bubble");
+        } else {
+            bubble_value.setText("Bubbles Formed");
+        }
+        Log.d("readAdaLdr: ", ldr + "");
+        Log.d("readAdaUlt: ", ultra + "");
+        switch (ldr) {
+            case 12:
+                depth_value.setText("100%");
+                break;
+            case 11:
+                depth_value.setText("91.3%");
+                break;
+            case 10:
+                depth_value.setText("83%");
+                break;
+            case 9:
+                depth_value.setText("74.7%");
+                break;
+            case 8:
+                depth_value.setText("66.4%");
+                break;
+            case 7:
+                depth_value.setText("58.1%");
+                break;
+            case 6:
+                depth_value.setText("49.8%");
+                break;
+            case 5:
+                depth_value.setText("41.5%");
+                break;
+            case 4:
+                depth_value.setText("33.2%");
+                break;
+            case 3:
+                depth_value.setText("24.9%");
+                break;
+            case 2:
+                depth_value.setText("16.6%");
+                break;
+            case 1:
+                depth_value.setText("8.3%");
+                break;
+            case 0:
+                depth_value.setText("0%");
+                break;
+        }
     }
 
-    private void checkDripActivity(List<Feeds> feeds) {
-        boolean stopped = false;
-
-        int firstMin = Integer.parseInt(feeds.get(0).getCreated_at().substring(14,16));
-        int secondMin = Integer.parseInt(feeds.get(1).getCreated_at().substring(14,16));
-        int firstHour = Integer.parseInt(feeds.get(0).getCreated_at().substring(11,13));
-        int secondHour = Integer.parseInt(feeds.get(1).getCreated_at().substring(11,13));
-
-        Calendar c1 = Calendar.getInstance();
-        Calendar c2 = Calendar.getInstance();
-        c1.set(Calendar.HOUR_OF_DAY, firstHour);
-        c1.set(Calendar.MINUTE, firstMin);
-        c2.set(Calendar.HOUR_OF_DAY, secondHour);
-        c2.set(Calendar.MINUTE, secondMin);
-
-        if((feeds.get(0).getField2() == feeds.get(1).getField2()) && (c1.getTimeInMillis() - c2.getTimeInMillis()) > 300000)
-            stopped = true;
-
-        if (stopped)
-            drip_text.setText("Drip has Stopped");
-        else
-            drip_text.setText("Drip is Flowing");
-    }
+//    private void checkDripActivity(List<Feeds> feeds) {
+//        boolean stopped = false;
+//
+//        int firstMin = Integer.parseInt(feeds.get(0).getCreated_at().substring(14,16));
+//        int secondMin = Integer.parseInt(feeds.get(1).getCreated_at().substring(14,16));
+//        int firstHour = Integer.parseInt(feeds.get(0).getCreated_at().substring(11,13));
+//        int secondHour = Integer.parseInt(feeds.get(1).getCreated_at().substring(11,13));
+//
+//        Calendar c1 = Calendar.getInstance();
+//        Calendar c2 = Calendar.getInstance();
+//        c1.set(Calendar.HOUR_OF_DAY, firstHour);
+//        c1.set(Calendar.MINUTE, firstMin);
+//        c2.set(Calendar.HOUR_OF_DAY, secondHour);
+//        c2.set(Calendar.MINUTE, secondMin);
+//
+//        if((feeds.get(0).getField2() == feeds.get(1).getField2()) && (c1.getTimeInMillis() - c2.getTimeInMillis()) > 300000)
+//            stopped = true;
+//
+//        if (stopped)
+//            drip_text.setText("Drip has Stopped");
+//        else
+//            drip_text.setText("Drip is Flowing");
+//    }
 }

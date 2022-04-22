@@ -20,7 +20,7 @@ public class ValuesActivity extends AppCompatActivity {
 
         patient_one.setOnClickListener(view -> {
             startActivity(new Intent(ValuesActivity.this, MainActivity.class));
-            finish();
+//            finish();
         });
 
     }

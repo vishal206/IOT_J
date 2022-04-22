@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "500330565129",
+    "firebase_url": "https://drip-d0348-default-rtdb.firebaseio.com",
+    "project_id": "drip-d0348",
+    "storage_bucket": "drip-d0348.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500330565129:android:d924f643541ac0aa3832d8",
+        "android_client_info": {
+          "package_name": "com.undamped.medicare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500330565129-qtg39h3dk73ab8b66e79j00c4oqp4898.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUBVWaMlwdOqpYzkSD0JBzBuPO-bZpPE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500330565129-qtg39h3dk73ab8b66e79j00c4oqp4898.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

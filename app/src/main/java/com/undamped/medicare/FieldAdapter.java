@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.ViewHolder> {
-    ArrayList<Feeds> feedsList;
+    ArrayList<Reading> rList;
     Context context;
 
-    public FieldAdapter(ArrayList<Feeds> feeds) {
-        feedsList = feeds;
+    public FieldAdapter(ArrayList<Reading> feeds) {
+        rList = feeds;
 
     }
 
@@ -33,17 +33,18 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Feeds feed = feedsList.get(position);
+        Reading r = rList.get(position);
 
 //        holder.textDateTime.setText(feed.getCreated_at());
 
-        if ((feed.getField1()) >= 800) {
+        if ((r.getUltrasonic()) >= 800) {
             holder.bubble_value.setText("No Bubble");
         } else {
             holder.bubble_value.setText("Bubbles Formed");
         }
-        Log.d("onBindViewHolder: ",feed.getField2() +"");
-        switch (feed.getField2()) {
+        Log.d("readAdaLdr: ",r.getLdr() +"");
+        Log.d("readAdaUlt: ",r.getUltrasonic() +"");
+        switch (r.getLdr()) {
             case 12:
                 holder.depth_value.setText("100%");
                 break;
@@ -88,7 +89,7 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return feedsList.size();
+        return rList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

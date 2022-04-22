@@ -21,15 +21,15 @@ public class Feeds {
         this.entry_id = entry_id;
     }
 
-    public List<Feeds> getFeeds()
-    {
-        return feeds;
-    }
-
-    public void setFeeds(List<Feeds> feeds)
-    {
-        this.feeds = feeds;
-    }
+//    public List<Feeds> getFeeds()
+//    {
+//        return feeds;
+//    }
+//
+//    public void setFeeds(List<Feeds> feeds)
+//    {
+//        this.feeds = feeds;
+//    }
 
     public String getCreated_at()
     {
